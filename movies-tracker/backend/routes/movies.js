@@ -24,11 +24,11 @@ router.post('/add', isAuth, (req, res) => {
     newMovie.save().then(movie => res.json(movie)).catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuth, (req, res) => {
     Movie.findByIdAndDelete(req.params.id).then(() => res.json("Movie deleted.")).catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.post('/update/:id', (req, res) => {
+router.post('/update/:id', isAuth, (req, res) => {
     Movie.findById(req.params.id).then(movie => {
         movie.name = req.body.name;
         movie.year = Number(req.body.year);
